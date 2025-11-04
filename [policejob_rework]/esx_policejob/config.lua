@@ -14,6 +14,9 @@ Config.EnableLicenses             = false -- Enable if you're using esx_license.
 Config.EnableHandcuffTimer        = true -- Enable handcuff timer? will unrestrain player after the time ends.
 Config.HandcuffTimer              = 10 * 60000 -- 10 minutes.
 
+Config.UseOxTarget                = true -- Enable ox_target integration? If true, F6 menu will be disabled.
+Config.EnableF6Menu               = false -- Enable F6 menu? Only works if UseOxTarget is false.
+
 Config.EnableCustomPeds           = false -- Enable custom peds in cloak room? See Config.CustomPeds below to customize peds.
 
 Config.EnableESXService           = false -- Enable esx service?

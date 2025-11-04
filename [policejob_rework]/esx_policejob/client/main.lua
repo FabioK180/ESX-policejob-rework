@@ -1450,6 +1450,11 @@ ESX.RegisterInput("police:interact", "(ESX PoliceJob) " .. TranslateCap('interac
 end)
 
 ESX.RegisterInput("police:quickactions", "(ESX PoliceJob) "..TranslateCap('quick_actions'), "keyboard", "F6", function()
+	-- Check of F6 menu is uitgeschakeld vanwege ox_target gebruik
+	if Config.UseOxTarget and not Config.EnableF6Menu then
+		return
+	end
+
 	if not ESX.PlayerData.job or (ESX.PlayerData.job.name ~= 'police') or isDead then
 		return
 	end
@@ -1460,6 +1465,20 @@ ESX.RegisterInput("police:quickactions", "(ESX PoliceJob) "..TranslateCap('quick
 		OpenPoliceActionsMenu()
 	else
 		ESX.ShowNotification(TranslateCap('service_not'))
+	end
+end)
+
+-- X toets handler voor het loslaten van gedraagde personen
+ESX.RegisterInput("police:stopdrag", "(ESX PoliceJob) Stop Dragging", "keyboard", "X", function()
+	if not ESX.PlayerData.job or (ESX.PlayerData.job.name ~= 'police') or isDead then
+		return
+	end
+
+	-- Check of er iemand wordt gedraagd
+	local player, distance = ESX.Game.GetClosestPlayer()
+	if player ~= -1 and distance <= 3.0 then
+		-- Stuur event om drag te stoppen
+		TriggerServerEvent('esx_policejob:drag', GetPlayerServerId(player))
 	end
 end)
 
